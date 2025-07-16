@@ -42,7 +42,7 @@ def manager_init() -> None:
     ("LongitudinalPersonality", str(log.LongitudinalPersonality.standard)),
     ("DisableLogging", "0"),
     ("dp_device_is_rhd", "0"),
-    ("dp_device_monitoring_disabled", "0"),
+    ("dp_device_monitoring_disabled", "1"),
     ("dp_device_beep", "0"),
     ("dp_lat_alka", "0"),
     ("dp_ui_display_mode", "0"),
