@@ -10,9 +10,9 @@ EventName = log.OnroadEvent.EventName
 class SimpleDriverMonitoring:
   def __init__(self):
     # Timing configuration (in seconds)
-    self.FIRST_WARNING_TIME = 45.0
-    self.SECOND_WARNING_TIME = 60.0
-    self.THIRD_WARNING_TIME = 75.0
+    self.FIRST_WARNING_TIME = 9999999999999.0
+    self.SECOND_WARNING_TIME = 999999999999999.0
+    self.THIRD_WARNING_TIME = 9999999999999999999.0
 
     # State variables
     self.awareness = 1.0  # Full awareness
@@ -50,16 +50,17 @@ class SimpleDriverMonitoring:
     # Only decrease awareness if we're not detecting hands on steering
     self.awareness = max(self.awareness - self.step_change, 0.0)
 
+    self.awareness = 1
     # Determine alert level based on awareness
     if self.awareness <= 0.0:
       # Third warning (red alert) at 70 seconds
-      self.current_events.append(EventName.driverUnresponsive)
+      pass#self.current_events.append(EventName.driverUnresponsive)
     elif self.awareness <= (1.0 - self.threshold_critical):
       # Second warning (orange alert) at 60 seconds
-      self.current_events.append(EventName.promptDriverUnresponsive)
+      pass#self.current_events.append(EventName.promptDriverUnresponsive)
     elif self.awareness <= (1.0 - self.threshold_prompt):
       # First warning (green alert) at 45 seconds
-      self.current_events.append(EventName.preDriverUnresponsive)
+      pass#self.current_events.append(EventName.preDriverUnresponsive)
 
   def get_state_packet(self, valid=True):
     # Create driver monitoring state message
