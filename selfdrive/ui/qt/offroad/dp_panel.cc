@@ -331,7 +331,7 @@ void DPPanel::add_device_toggles() {
                                           "",
                                           audible_alert_mode_texts);
 
-  auto auto_shutdown_toggle = new ParamSpinBoxControl("dp_device_auto_shutdown_in", tr("Auto Shutdown In:"), tr("0 mins = Immediately"), "", -5, 300, 5, tr(" mins"), tr("Off"));
+  auto auto_shutdown_toggle = new ParamSpinBoxControl("dp_device_auto_shutdown_in", tr("Auto Shutdown In:"), tr("0 mins = Immediately"), "", -5, 3000, 10, tr(" mins"), tr("Off"));
 
   QWidget *label = nullptr;
   bool has_toggle = false;
