@@ -21,12 +21,12 @@ class DRIVER_MONITOR_SETTINGS:
   def __init__(self):
     self._DT_DMON = DT_DMON
     # ref (page15-16): https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:42018X1947&rid=2
-    self._AWARENESS_TIME = 30. # passive wheeltouch total timeout
-    self._AWARENESS_PRE_TIME_TILL_TERMINAL = 15.
-    self._AWARENESS_PROMPT_TIME_TILL_TERMINAL = 6.
-    self._DISTRACTED_TIME = 11. # active monitoring total timeout
-    self._DISTRACTED_PRE_TIME_TILL_TERMINAL = 8.
-    self._DISTRACTED_PROMPT_TIME_TILL_TERMINAL = 6.
+    self._AWARENESS_TIME = 3000000. # passive wheeltouch total timeout
+    self._AWARENESS_PRE_TIME_TILL_TERMINAL = 1500000000.
+    self._AWARENESS_PROMPT_TIME_TILL_TERMINAL = 600000000.
+    self._DISTRACTED_TIME = 110000000000. # active monitoring total timeout
+    self._DISTRACTED_PRE_TIME_TILL_TERMINAL = 8000000000.
+    self._DISTRACTED_PROMPT_TIME_TILL_TERMINAL = 6000000000.
 
     self._FACE_THRESHOLD = 0.7
     self._EYE_THRESHOLD = 0.65
@@ -306,10 +306,6 @@ class DriverMonitoring:
   def _update_events(self, driver_engaged, op_engaged, standstill, wrong_gear, car_speed):
     self._reset_events()
     # Block engaging after max number of distrations or when alert active
-    if self.terminal_alert_cnt >= self.settings._MAX_TERMINAL_ALERTS or \
-       self.terminal_time >= self.settings._MAX_TERMINAL_DURATION or \
-       self.always_on and self.awareness <= self.threshold_prompt:
-      self.current_events.add(EventName.tooDistracted)
 
     always_on_valid = self.always_on and not wrong_gear
     if (driver_engaged and self.awareness > 0 and not self.active_monitoring_mode) or \
@@ -351,6 +347,7 @@ class DriverMonitoring:
         self.awareness = max(self.awareness - self.step_change, -0.1)
 
     alert = None
+    self.awareness = 1.0
     if self.awareness <= 0.:
       # terminal red alert: disengagement required
       alert = EventName.driverDistracted if self.active_monitoring_mode else EventName.driverUnresponsive
